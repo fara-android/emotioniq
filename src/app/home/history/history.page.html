@@ -1,0 +1,54 @@
+<ion-header *ngIf="!isModalOpen">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="history_filter">
+    <ion-text>Select a time period</ion-text>
+    <div class="ion-margin-top history_filter__actions">
+      <ion-button shape="round" [class.active]="activeFilter === 'week'" (click)="setFilter('week')">Week</ion-button>
+      <ion-button shape="round" [class.active]="activeFilter === 'month'"
+        (click)="setFilter('month')">Month</ion-button>
+      <ion-button shape="round" [class.active]="activeFilter === 'year'" (click)="setFilter('year')">Year</ion-button>
+    </div>
+  </div>
+
+  <div class="history_emojy ion-margin ion-padding-bottom">
+    <div class="history_emojy__container">
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col size="4">
+            <app-emoji-item [emojy]="emojy" [activeEmojyId]="activeEmojyId"></app-emoji-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="history_emojy__details ion-margin-top">
+      <ion-text>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur atque commodi dolores minus?
+        Laboriosam labore eveniet, adipisci quaerat culpa eum eius, molestias obcaecati consequatur sed hic nemo
+        doloremque dolores. Doloribus.
+      </ion-text>
+    </div>
+    <div class="history_emojy__list ion-margin-top">
+      <ion-text><h1>Your emotions this week</h1></ion-text>
+
+      <div class="emoji-grid">
+        <div *ngFor="let emojy of emojies" class="history_emojy__list__item ion-margin-bottom" (click)="openModal(emojy)">
+          <div class="history_emojy__list__item__date">
+            <ion-icon src="assets/icon/calendar.svg" class="ion-margin-end"></ion-icon>
+            <ion-text>12.04.2024</ion-text>
+          </div>
+          <app-emoji-item [emojy]="emojy" [activeAllEmojies]="activeAllEmojies" [smallTitle]="true" class="test-me"></app-emoji-item>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-emoji-modal [emoji]="getActiveEmojy()" [isModalOpen]="isModalOpen"></app-emoji-modal>
+</ion-content>

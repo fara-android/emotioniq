@@ -1,20 +1,76 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="home_content">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid class="top_details">
+    <ion-row class="ion-justify-content-between">
+      <ion-col>
+        <ion-text>
+          <h1>{{ dtime_now|date:'dd' }}</h1>
+          <p>{{ dtime_now | date: 'MMMM, EEEE' }}</p>
+        </ion-text>
+      </ion-col>
+      <ion-col class="margin-block">
+        <ion-fab horizontal="end">
+          <ion-fab-button size="small" color="none" (click)="navigateTo('history')">
+            <img src="/assets/icon/history.png" alt="History">
+          </ion-fab-button>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="main_block">
+    <div class="ion-margin">
+      <ion-text><h1>What's your mood?</h1></ion-text>
+      <swiper-container appSwiper [config]="swiperConfig" class="ion-margin-top" (slidechange)="slideChange($event)">
+        <swiper-slide *ngFor="let emojy of emojies;" (click)="setActiveIndex(emojy.id)">
+          <app-emoji-item [emojy]="emojy" [activeEmojyId]="activeEmojyId"></app-emoji-item>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+
+    <div class="user_text">
+      <ion-item class="user_textarea custom_item ion-margin-top" id="user-text-modal">
+        {{ userInput || userInputDefault }}
+      </ion-item>
+      <ion-button class="textarea_button" (click)="saveTask()" *ngIf="!highlightedViewShown">
+        Save
+        <ion-icon *ngIf="taskSaved" class="ion-margin-start" src="/assets/emojes/saved.svg"></ion-icon>
+      </ion-button>
+    </div>
+
+    <div class="mood_playlist ion-margin-top">
+      <ion-list>
+        <ion-list-header>
+          <ion-label>Mood playlist test me</ion-label>
+        </ion-list-header>
+        <ion-item class="ion-margin" *ngFor="let _ of [1,2,3,4,5]">
+          <ion-grid>
+            <ion-row class="ion-justify-content-between ion-align-items-center">
+              <ion-col size="4">
+                <img class="song_background" src="/assets/player_screens/image1.png" alt="Song background"/>
+              </ion-col>
+              <ion-col>
+                <ion-text class="song_name">Refresh</ion-text>
+                <ion-text class="song_time">05:23 min</ion-text>
+              </ion-col>
+              <ion-col size="2" (click)="navigateTo('player')">
+                <ion-img class="song_play_button" src="/assets/icon/play.svg" alt="Play button"></ion-img>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <ion-modal #modal trigger="user-text-modal">
+      <ion-content>
+        <ion-item class="close_modal_btn">
+          <ion-img src="/assets/emojes/close_no_bg.png" (click)="closeModal()"></ion-img>
+        </ion-item>
+        <ion-textarea (ionChange)="commitUserInput($event)" placeholder="How was your day?" [clearOnEdit]="true"
+        [autoGrow]="true" [rows]="10" class="custom_textarea" [value]="userInputDefault"
+        ></ion-textarea>
+      </ion-content>
+    </ion-modal>
   </div>
 </ion-content>

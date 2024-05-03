@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">emotioniq</string>
+    <string name="title_activity_main">emotioniq</string>
+    <string name="package_name">io.emotioniq.app</string>
+    <string name="custom_url_scheme">io.emotioniq.app</string>
+</resources>

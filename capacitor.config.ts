@@ -1,9 +1,14 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'io.emotioniq.app',
   appName: 'emotioniq',
-  webDir: 'www'
+  webDir: 'www',
+  "plugins": {
+    "Storage": {
+      "sync": true
+    }
+  }
 };
 
 export default config;

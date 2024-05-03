@@ -1,0 +1,13 @@
+<!-- <div class="loader"></div> -->
+<div>
+  <ion-range min="0" [max]="audio.duration || 0" [(ngModel)]="audio.currentTime" color="primary" (ionChange)="seek($event)">
+    <ion-label slot="start">{{ formatTime(audio.currentTime) }}</ion-label>
+    <ion-label slot="end">{{ formatTime(audio.duration) }}</ion-label>
+  </ion-range>
+</div>
+<div>
+  <button (click)="prev()">Prev</button>
+  <button (click)="play()">Play</button>
+  <button (click)="pause()">Pause</button>
+  <button (click)="next()">Next</button>
+</div>

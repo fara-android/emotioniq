@@ -1,0 +1,19 @@
+<ion-tabs>
+  <ion-tab-bar class="main_app_tabs" slot="bottom" *ngIf="appComponent.showNavbar">
+    <ion-tab-button tab="home">
+      <ion-icon src="assets/navbar/{{ isRouteActive('home') ? 'home_active.svg' : 'home.svg' }}"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="analysis">
+      <ion-icon src="assets/navbar/{{ isRouteActive('analysis') ? 'analysis_active.svg' : 'analysis.svg' }}"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="quiz">
+      <ion-icon src="assets/navbar/{{ isRouteActive('quiz') ? 'quiz_active.svg' : 'quiz.svg' }}"></ion-icon>
+    </ion-tab-button>
+    <ion-tab-button tab="settings">
+      <ion-icon src="assets/navbar/{{ isRouteActive('settings') ? 'settings_active.svg' : 'settings.svg' }}"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+  <!-- <div *ngIf="appComponent.showNavbar" class="bottom-tab" appBottomTabDirective [backgroundColor]="backgroundColor">
+    <div></div>
+  </div> -->
+</ion-tabs>

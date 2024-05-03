@@ -1,0 +1,76 @@
+:host ::ng-deep ion-range {
+    --ion-color-base: #0094FF !important;
+}
+
+ion-range {
+    --knob-width: 10px !important;
+    --knob-height: 10px !important;
+    --knob-background: #00C2FF;
+    --bar-height: 5px;
+    --bar-border-radius: 5px;
+    --bar-background: #0094FF40;
+}
+
+// ion-range::part(bar) {
+//     --s: 60px;
+//     /* the size of the wave */
+//     --b: 10px;
+//     /* the thickness of the line*/
+
+//     height: calc(2 * var(--s));
+//     aspect-ratio: 2.5;
+//     display: grid;
+//     padding: 7px;
+//     background: #fff;
+//     mix-blend-mode: darken;
+// }
+
+// ion-range::part(bar)::before {
+//     content: "";
+//     --_g: calc(-.6 * var(--s)), #0000 calc(99% - var(--b)), #0094FF40 calc(101% - var(--b)) 99%, #0000 101%;
+//     --_r: calc(1.166 * var(--s) + var(--b) / 2) at left 50%;
+//     background:
+//         radial-gradient(var(--_r) bottom var(--_g)) calc(50% - var(--s)) calc(50% - var(--s))/calc(4 * var(--s)) calc(2 * var(--s)),
+//         radial-gradient(var(--_r) top var(--_g)) calc(50% + var(--s)) calc(50% + var(--s))/calc(4 * var(--s)) calc(2 * var(--s));
+//     animation: m 1s ease-in-out linear;
+// }
+
+// @keyframes m {
+//     to {
+//         background-position:
+//             calc(50% - 5 * var(--s)) calc(50% - var(--s)),
+//             calc(50% - 3 * var(--s)) calc(50% + var(--s));
+//     }
+// }
+
+// .loader {
+//     --s: 60px;
+//     /* the size of the wave */
+//     --b: 10px;
+//     /* the thickness of the line*/
+
+//     height: calc(2*var(--s));
+//     aspect-ratio: 2.5;
+//     display: grid;
+//     padding: 7px;
+//     background: #fff;
+//     mix-blend-mode: darken;
+// }
+
+// .loader::before {
+//     content: "";
+//     --_g: calc(-.6*var(--s)), #0000 calc(99% - var(--b)), #0094FF40 calc(101% - var(--b)) 99%, #0000 101%;
+//     --_r: calc(1.166*var(--s) + var(--b)/2) at left 50%;
+//     background:
+//         radial-gradient(var(--_r) bottom var(--_g)) calc(50% - var(--s)) calc(50% - var(--s))/calc(4*var(--s)) calc(2*var(--s)),
+//         radial-gradient(var(--_r) top var(--_g)) calc(50% + var(--s)) calc(50% + var(--s))/calc(4*var(--s)) calc(2*var(--s));
+//     animation: m 1s ease-in-out linear;
+// }
+
+// @keyframes m {
+//     to {
+//         background-position:
+//             calc(50% - 5*var(--s)) calc(50% - var(--s)),
+//             calc(50% - 3*var(--s)) calc(50% + var(--s))
+//     }
+// }

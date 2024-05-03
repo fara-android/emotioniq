@@ -1,0 +1,68 @@
+<ion-content [fullscreen]="true" class="player_content">
+  <div class="player_header">
+    <div class="player_header__back" (click)="backToHome()"><ion-img src="/assets/icon/back.svg"></ion-img></div>
+    <div class="player_header__share"><ion-img src="/assets/icon/share.svg"></ion-img></div>
+  </div>
+
+  <div class="player_screens">
+    <div class="player_screens__background active">
+      <ion-img src="/assets/screens/player/screen_1.png"></ion-img>
+    </div>
+    <div class="player_screens__background">
+      <ion-img src="/assets/screens/player/screen_2.png"></ion-img>
+    </div>
+    <div class="player_screens__background">
+      <ion-img src="/assets/screens/player/screen_3.png"></ion-img>
+    </div>
+    <div class="player_screens__background">
+      <ion-img src="/assets/screens/player/screen_4.png"></ion-img>
+    </div>
+    <div class="player_screens__background">
+      <ion-img src="/assets/screens/player/screen_5.png"></ion-img>
+    </div>
+  </div>
+
+  <div class="player_block">
+    <ion-text>
+      <h1>Refresh</h1>
+    </ion-text>
+
+    <!-- Playback section -->
+    <div class="player_playback" text-center>
+      <app-audio-player [src]="'https://ia800207.us.archive.org/29/items/MLKDream/MLKDream_64kb.mp3'"></app-audio-player>
+
+      <!-- control bar -->
+      <div>
+        <ion-range min="0" max="{{duration}}" [(ngModel)]="position">
+          <!--  [disabled]="is_in_play && is_playing"  -->
+          <ion-label slot="start">{{ position*1000 | date:'mm:ss' }}</ion-label>
+          <ion-label slot="end" *ngIf="duration === -1">--:--</ion-label>
+          <ion-label slot="end" *ngIf="duration !== -1">{{ duration*1000 | date:'mm:ss' }}</ion-label>
+        </ion-range>
+      </div>
+
+      <div class="player_playback__control">
+        <!-- Backwards -->
+        <div>
+          <ion-icon src="/assets/screens/player/prev.svg" 
+          class="skip-btn" (click)="controlSeconds('back')"></ion-icon>
+        </div>
+
+        <!-- Play/Pause -->
+        <div>
+          <ion-icon src="/assets/screens/player/play.svg" 
+          (click)="playRecording()" *ngIf="!is_playing"
+          class="play-pause-btn"></ion-icon>
+        </div>
+
+        <!-- Forwards -->
+        <div>
+          <ion-icon src="/assets/screens/player/next.svg" 
+          class="skip-btn" (click)="controlSeconds('forward')"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ion-content>
+
