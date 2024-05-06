@@ -1,3 +1,23 @@
 <ion-content [fullscreen]="true">
-Quiz!
+    <div *ngIf="!quizStarted">
+        <div class="custom_page_header">
+            <div class="custom_page_header__back"><ion-text><h1>Game</h1></ion-text></div>
+            <ion-icon src="assets/quiz/cup.svg" slot="end" [routerLink]="['/quiz/rewards']"></ion-icon>
+        </div>
+    
+        <div class="quiz_block ion-padding">
+            <ion-img src="assets/quiz/quiz_welcome.png"></ion-img>
+
+            <div class="quiz_block__details">
+                <ion-text class="title"><h1>QUIZ GAME</h1></ion-text>
+                <ion-text class="text">Learn to recognise emotions in a short time and reap the rewards</ion-text>
+            </div>
+
+            <div class="quiz_block__start">
+                <ion-button class="quiz_button" (click)="startQuiz()">Start</ion-button>
+            </div>
+        </div>
+    </div>
+
+    <app-user-quiz *ngIf="quizStarted" [quizStarted]="quizStarted"></app-user-quiz>
 </ion-content>

@@ -1,3 +1,37 @@
-<ion-content [fullscreen]="true">
-analysis!
+<ion-content [fullscreen]="true" class="ion-padding">
+    <h1>Analysis</h1>
+
+    <div class="page_filter">
+        <div class="ion-margin-top page_filter__actions">
+            <ion-button shape="round" [class.active]="activeFilter === 'articles'" (click)="setFilter('articles')">
+                Articles
+            </ion-button>
+            <ion-button shape="round" [class.active]="activeFilter === 'videos'" (click)="setFilter('videos')">
+                Vidoes
+            </ion-button>
+        </div>
+    </div>
+
+    <div class="articles" *ngIf="activeFilter === 'articles'">
+        <div class="articles__list grid-two-elements">
+            <div class="articles_list__item" *ngFor="let article of articles">
+                <ion-card [routerLink]="['/analysis/article', article.id]">
+                    <img alt="{{article.title}}" [src]="article.image" />
+                    <ion-card-header>
+                        <ion-card-title>{{article.title}}</ion-card-title>
+                    </ion-card-header>
+
+                    <ion-card-content>{{ article.description | slice:0:32 }}</ion-card-content>
+                </ion-card>
+            </div>
+        </div>
+    </div>
+
+    <div class="videos" *ngIf="activeFilter === 'videos'">
+        <div class="videos__list grid-one-element">
+            <div class="videos_list__item" *ngFor="let video of videos" [routerLink]="['/analysis/video', video.id]">
+                <img alt="{{video.title}}" [src]="video.image" class=""/>
+            </div>
+        </div>
+    </div>
 </ion-content>

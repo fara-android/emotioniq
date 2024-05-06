@@ -1,17 +1,10 @@
 ion-content.player_content {
-    --background: url('/assets/screens/player/1.png') 0 0/cover no-repeat, #FFFFFF;
-
-    .player_header {
-        padding: 2rem 1rem;
-        display: flex;
-        justify-content: space-between;
-
-        ion-img {
-            width: 40px;
-            height: 40px;
-        }
+    .player_image {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        z-index: -1;
     }
-
     .player_screens {
         padding: 0 1rem;
         display: flex;
@@ -22,7 +15,7 @@ ion-content.player_content {
         overflow: auto;
 
         &__background {
-            border: 2px solid #FFFFFF;
+            // border: 2px solid #FFFFFF;
             border-radius: 6px;
 
             ion-img {
@@ -32,7 +25,7 @@ ion-content.player_content {
         }
 
         &__background.active {
-            border-color: #0094FF;
+            border: 2px solid #0094FF;
         }
     }
 

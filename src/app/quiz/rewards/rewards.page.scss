@@ -1,0 +1,25 @@
+ion-content {
+    .custom_page_header {
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 33.89px;
+            text-align: left;
+            margin: 0;
+        }
+        ion-icon {
+            width: 56px;
+            height: 56px;
+        }
+    }
+
+    .user-rewards {
+        &__list {
+            &__item {
+                --border-color: transparent;
+                --background: #00C2FF40;
+                --border-radius: 12px;
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<ion-content [fullscreen]="true" [style.background]="'url(' + article?.image + ')'">
+  <div class="custom_page_header">
+    <div class="custom_page_header__back" [routerLink]="['/analysis']"><ion-img src="assets/icon/back.svg"></ion-img></div>
+    <div class="custom_page_header__share"><ion-img src="assets/icon/share.svg"></ion-img></div>
+  </div>
+
+  <div class="article_image">
+    <ion-img [src]="article?.image"></ion-img>
+  </div>
+
+  <div class="page_main_block ion-padding">
+    <div class="article_details">
+      <ion-text><h1>{{ article?.title }}</h1></ion-text>
+      <ion-text>{{ article?.description }}</ion-text>
+    </div>
+  </div>
+</ion-content>

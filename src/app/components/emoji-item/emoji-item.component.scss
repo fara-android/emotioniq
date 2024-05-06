@@ -1,4 +1,13 @@
 .emoji-item {
+    position: relative;
+
+    .emojy_crown {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        right: 0;
+    }
+
     .active-emojy {
         -webkit-transform: scale(0.8) !important;
         transform: scale(0.8) !important;

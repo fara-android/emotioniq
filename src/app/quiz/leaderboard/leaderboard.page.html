@@ -1,0 +1,89 @@
+<ion-content [fullscreen]="true">
+  <div class="custom_page_header">
+    <div class="custom_page_header__tooltip">
+      <ion-icon src="assets/icon/back_light.svg" slot="start" [routerLink]="['/quiz/rewards']"></ion-icon>
+      <ion-text>
+        <h1>Leaderboard</h1>
+      </ion-text>
+    </div>
+    <div class="custom_page_header__user_positions">
+
+      <div class="chart_diagram">
+        <div class="user_rank" id="second_place">
+          <ion-img class="rank_icon" src="assets/quiz/second_place.png"></ion-img>
+          <ion-text class="user_name">{{highestUsersScore[1].name}}</ion-text>
+          <div class="user_rank__points">
+            <ion-img src="assets/quiz/rank_rectangle_sm.png"></ion-img>
+            <ion-text>{{ highestUsersScore[1].score }}</ion-text>
+          </div>
+        </div>
+        <ion-img src="assets/quiz/chart.png" class="chart second_place_chart"></ion-img>
+      </div>
+
+
+      <div class="chart_diagram">
+        <div class="user_rank" id="first_place">
+          <div class="user_rank__points__top_user">
+            <ion-img src="assets/quiz/rank_rectangle_lg.png"></ion-img>
+            <div class="top_user_name">
+              <ion-img class="rank_icon" src="assets/quiz/first_place.png"></ion-img>
+              <ion-text>{{ highestUsersScore[0].name }}</ion-text>
+              <ion-text>{{ highestUsersScore[0].score }}</ion-text>
+            </div>
+          </div>
+        </div>
+        <ion-img src="assets/quiz/chart.png" class="chart first_place_chart"></ion-img>
+      </div>
+
+
+      <div class="chart_diagram">
+        <div class="user_rank" id="third_place">
+          <ion-img class="rank_icon" src="assets/quiz/third_place.png"></ion-img>
+          <ion-text class="user_name">{{ highestUsersScore[2].name }}</ion-text>
+          <div class="user_rank__points">
+            <ion-img src="assets/quiz/rank_rectangle_sm.png"></ion-img>
+            <ion-text>{{ highestUsersScore[2].score }}</ion-text>
+          </div>
+        </div>
+        <ion-img src="assets/quiz/chart.png" class="chart third_place_chart"></ion-img>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="users-leaderboard">
+    <ion-list class="users-leaderboard__list">
+      <ion-item *ngFor="let user of users.slice(0, 10); let i = index" class="ion-margin users-leaderboard__list__item" 
+      [class.first-place]="i === 0" [class.second-place]="i === 1" [class.third-place]="i === 2">
+        <ion-grid>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="3">
+              <img *ngIf="i < 3" [src]="'assets/quiz/place_' + (i + 1) + '.png'" alt="User Avatar">
+              <ion-text *ngIf="i >= 3"><h1>{{ i + 1 }}th Place</h1></ion-text>
+            </ion-col>
+            <ion-col>
+              <ion-text><h1>{{ user.name }}</h1></ion-text>
+              <ion-text><p>{{ user.score }} correct answers</p></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <div class="ion-padding" *ngIf="users.length > 10">
+        <ion-text><strong>... {{ users.length - 2 }} </strong></ion-text>
+      </div>
+      <ion-item *ngIf="getMyPosition()! > 10" class="ion-margin users-leaderboard__list__item">
+        <ion-grid>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="3">
+              <ion-text><h1>{{ getMyPosition()! }}th Place</h1></ion-text>
+            </ion-col>
+            <ion-col>
+              <ion-text><h1>{{ users[getMyPosition()!].name }}</h1></ion-text>
+              <ion-text><p>{{ users[getMyPosition()!].score }} correct answers</p></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

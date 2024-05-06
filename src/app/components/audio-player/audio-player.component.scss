@@ -11,6 +11,38 @@ ion-range {
     --bar-background: #0094FF40;
 }
 
+.player_playback {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+
+    .play-pause-btn {
+        --ion-color-base: transparent !important;
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        font-size: 2.3em;
+        border-radius: 50%;
+    }
+
+    .skip-btn {
+        --ion-color-base: transparent !important;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+    }
+
+    .player_playback__control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
+}
+
 // ion-range::part(bar) {
 //     --s: 60px;
 //     /* the size of the wave */

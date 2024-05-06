@@ -1,0 +1,72 @@
+<div class="user-quiz_block" *ngIf="!quizFinished">
+    <div class="custom_page_header">
+        <div class="custom_page_header__questions_number">{{ currentQuestionIndex + 1 }} / {{ questions.length }}</div>
+        <div class="custom_page_header__help">
+            <ion-grid>
+                <ion-row>
+                    <ion-col *ngFor="let hint of hints; let i = index" (click)="useHint(i)">
+                        <ion-img [src]="hint.hintUsed ? hint.hintIconUsed : hint.hintIconUnused"></ion-img>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+
+    <div class="user-quiz_block__details">
+        <div class="user-quiz_block__details__main ion-padding">
+            <ion-img [src]="currentQuestion.image"></ion-img>
+            <div class="user-quiz_block__details__main__timer">
+                <div class="circle" [style.background]="getTimerGradient()"></div>
+                <div class="counter">
+                    <ion-text>{{ timer }}</ion-text>
+                </div>
+            </div>
+            <div class="user-quiz_block__details__main__title">
+                <ion-text>
+                    <h1>Identify which emotion is shown?</h1>
+                </ion-text>
+            </div>
+            <div class="user-quiz_block__details__main__hint">Select the correct answer</div>
+        </div>
+        <div class="user-quiz_block__details__answers ion-padding">
+            <div class="user-quiz_block__details__answers__item"
+                *ngFor="let choice of questions[currentQuestionIndex].choices; let i = index" (click)="answer(i)"
+                [class.active_answer]="i === selectedAnswerIndex">
+                <div class="user-quiz_block__details__answers__item__choice">{{ 'abcd'[i] }}.</div>
+                <div class="user-quiz_block__details__answers__item__text">
+                    <ion-text>{{ choice }}</ion-text>
+                    <ion-icon *ngIf="questions[currentQuestionIndex].feedbackIcon && selectedAnswerIndex === i"
+                        [src]="questions[currentQuestionIndex].feedbackIcon"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <div class="user-quiz_block__details__submit ion-padding">
+            <ion-button (click)="submitAnswer()" [disabled]="answerButtonDisabled">Answer</ion-button>
+        </div>
+    </div>
+</div>
+
+<div class="user-quiz_results ion-padding" *ngIf="quizFinished">
+    <ion-img src="/assets/quiz/quiz_welcome.png"></ion-img>
+    <ion-text>
+        <h1>You have completed the quiz!</h1>
+    </ion-text>
+    <div class="user-quiz_results__score">
+        <ion-text class="small_title">Correct answers:</ion-text>
+        <div class="score_progress">
+            <div class="actuall_progress" [style.width.%]="(correctAnswers / questions.length) * 100">
+                <ion-text class="correct_answers">{{ correctAnswers }}</ion-text>
+            </div>
+        </div>
+        <ion-button class="quiz_button" (click)="getReward(true)">Finish</ion-button>
+
+        <div *ngIf="isModalOpen" class="user-quiz_results__score__modal">
+            <div class="user-quiz_results__score__modal__content">
+                <ion-img src="/assets/quiz/congrats.png"></ion-img>
+                <ion-text><h1>Excellent</h1></ion-text>
+                <ion-text class="text">Continue to get reward</ion-text>
+                <ion-button class="quiz_button get_reward_button" [routerLink]="['/quiz/rewards']" (click)="resetQuiz()">Get Reward</ion-button>
+            </div>
+        </div>
+    </div>
+</div>

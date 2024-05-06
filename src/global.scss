@@ -39,7 +39,8 @@
 ion-header {
     ion-toolbar {
         --border-color: transparent;
-        padding: 1rem;
+        --padding-top: 1rem;
+        --padding-bottom: 1rem;
 
         ion-back-button {
             --margin-start: var(--ion-margin, 3px);
@@ -61,7 +62,6 @@ ion-fab-button {
 ion-tab-bar.main_app_tabs {
     --background: #00C2FF;
     --border: unset;
-    height: 56px;
 
     ion-icon {
         width: 20px;
@@ -88,5 +88,72 @@ ion-tab-bar.main_app_tabs {
 
     .child-bottom-tab {
         background: #000000 !important;
+    }
+}
+
+ion-content {
+    .page_main_block {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding-bottom: 7rem;
+        position: absolute;
+        background: #FFFFFF;
+        border-radius: 24px 24px 0px 0px;
+        box-shadow: 0px -3px 10px 0px #0000001A;
+    }
+
+    .custom_page_header {
+        padding: 2rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        ion-img {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .page_filter {
+        padding: 1rem 0;
+
+        ion-text {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 21.78px;
+            text-align: left;
+            color: #000000;
+        }
+
+        &__actions {
+            display: flex;
+            justify-content: center;
+
+            ion-button {
+                --padding-top: 10px;
+                --padding-bottom: 10px;
+                --color: #000000;
+                --background: #E6E6E6;
+                width: 100%;
+            }
+
+            ion-button.active {
+                --color: #FFFFFF;
+                --background: #0094FF;
+                --background-hover: #0094FF;
+                --background-activated: #0094FF;
+                --background-focused: #0094FF;
+            }
+        }
+
+    }
+
+    ion-button.quiz_button {
+        --background: #0094FF;
+        width: 100%;
+        height: 56px;
+        padding: 12px 0;
+        --border-radius: 24px;
     }
 }

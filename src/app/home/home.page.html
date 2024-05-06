@@ -1,16 +1,15 @@
 <ion-content [fullscreen]="true" class="home_content">
-
   <ion-grid class="top_details">
     <ion-row class="ion-justify-content-between">
       <ion-col>
         <ion-text>
-          <h1>{{ dtime_now|date:'dd' }}</h1>
+          <h1>{{ dtime_now | date:'dd' }}</h1>
           <p>{{ dtime_now | date: 'MMMM, EEEE' }}</p>
         </ion-text>
       </ion-col>
       <ion-col class="margin-block">
         <ion-fab horizontal="end">
-          <ion-fab-button size="small" color="none" (click)="navigateTo('history')">
+          <ion-fab-button size="small" color="none" [routerLink]="['/home/history']">
             <img src="/assets/icon/history.png" alt="History">
           </ion-fab-button>
         </ion-fab>
@@ -18,21 +17,21 @@
     </ion-row>
   </ion-grid>
 
-  <div class="main_block">
+  <div class="page_main_block">
     <div class="ion-margin">
       <ion-text><h1>What's your mood?</h1></ion-text>
-      <swiper-container appSwiper [config]="swiperConfig" class="ion-margin-top" (slidechange)="slideChange($event)">
+      <swiper-container [slidesPerView]="3" class="ion-margin-top" (slidechange)="slideChange($event)">
         <swiper-slide *ngFor="let emojy of emojies;" (click)="setActiveIndex(emojy.id)">
-          <app-emoji-item [emojy]="emojy" [activeEmojyId]="activeEmojyId"></app-emoji-item>
+          <app-emoji-item [emojy]="emojy" [activeEmojiId]="activeEmojiId"></app-emoji-item>
         </swiper-slide>
       </swiper-container>
     </div>
 
     <div class="user_text">
-      <ion-item class="user_textarea custom_item ion-margin-top" id="user-text-modal">
+      <ion-item class="user_textarea custom_item ion-margin-top" (click)="setOpen(true)">
         {{ userInput || userInputDefault }}
       </ion-item>
-      <ion-button class="textarea_button" (click)="saveTask()" *ngIf="!highlightedViewShown">
+      <ion-button class="textarea_button" (click)="addTask()" *ngIf="!highlightedViewShown">
         Save
         <ion-icon *ngIf="taskSaved" class="ion-margin-start" src="/assets/emojes/saved.svg"></ion-icon>
       </ion-button>
@@ -43,17 +42,17 @@
         <ion-list-header>
           <ion-label>Mood playlist test me</ion-label>
         </ion-list-header>
-        <ion-item class="ion-margin" *ngFor="let _ of [1,2,3,4,5]">
+        <ion-item class="ion-margin" *ngFor="let track of tracks">
           <ion-grid>
             <ion-row class="ion-justify-content-between ion-align-items-center">
               <ion-col size="4">
                 <img class="song_background" src="/assets/player_screens/image1.png" alt="Song background"/>
               </ion-col>
               <ion-col>
-                <ion-text class="song_name">Refresh</ion-text>
-                <ion-text class="song_time">05:23 min</ion-text>
+                <ion-text class="song_name">{{ track.name }}</ion-text>
+                <ion-text class="song_time">{{ track.duration }}</ion-text>
               </ion-col>
-              <ion-col size="2" (click)="navigateTo('player')">
+              <ion-col size="2" [routerLink]="['/home/player', track.id]">
                 <ion-img class="song_play_button" src="/assets/icon/play.svg" alt="Play button"></ion-img>
               </ion-col>
             </ion-row>
@@ -62,7 +61,7 @@
       </ion-list>
     </div>
 
-    <ion-modal #modal trigger="user-text-modal">
+    <ion-modal #modal [isOpen]="isModalOpen" [backdropDismiss]="false">
       <ion-content>
         <ion-item class="close_modal_btn">
           <ion-img src="/assets/emojes/close_no_bg.png" (click)="closeModal()"></ion-img>

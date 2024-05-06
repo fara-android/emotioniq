@@ -1,12 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { register } from 'swiper/element/bundle';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Storage } from '@capacitor/storage';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardTitle, IonCardHeader, IonCardContent, IonCardSubtitle, IonButton, IonItem, IonLabel, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
-import { SwiperDirective } from '../directives/swiper.directive';
-import { SwiperOptions } from 'swiper/types';
+import { NavbarService } from '../services/navbar-service.service';
 
 register();
 
@@ -17,31 +16,19 @@ register();
   standalone: true,
   imports: [
     IonCol, IonRow, IonGrid, IonLabel, IonItem, IonButton, IonCardSubtitle, IonCardContent,
-    IonCardHeader, IonContent,
-    IonHeader, IonTitle, IonToolbar, IonCard,
-    IonCardTitle,
-    CommonModule,
-    SwiperDirective
+    IonCardHeader, IonContent, IonHeader, IonTitle, IonToolbar, IonCard,
+    IonCardTitle, CommonModule, RouterLink
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class WelcomePage implements OnInit {
-  @Input() config?: SwiperOptions;
-
-  public swiperConfig: any = {
-    slidesPerView: 3,
-    initialSlide: 1,
-    navigation: false,
-    spaceBetween: 40,
-    freeMode: true,
-    watchSlidesProgress: true,
-  };
-
   constructor(
     private router: Router,
+    private navbarService: NavbarService
   ) { }
 
   ngOnInit() {
+    this.navbarService.toggleNavbarVisibility(false);
     this.checkWelcomePageStatus();
   }
 

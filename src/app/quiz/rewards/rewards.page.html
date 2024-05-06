@@ -1,0 +1,28 @@
+<ion-content [fullscreen]="true">
+  <div class="custom_page_header">
+    <div class="custom_page_header__back">
+      <ion-icon src="assets/icon/back.svg" slot="start" [routerLink]="['/quiz']"></ion-icon>
+    </div>
+    <ion-text>
+      <h1>Rewards</h1>
+    </ion-text>
+    <ion-icon src="assets/quiz/leaderboard.svg" slot="end" [routerLink]="['/quiz/leaderboard']"></ion-icon>
+  </div>
+
+  <div class="user-rewards" *ngIf="userRewards.length > 0">
+    <ion-list class="user-rewards__list">
+      <ion-item class="ion-margin user-rewards__list__item" *ngFor="let reward of userRewards">
+        <ion-grid>
+          <ion-row class="ion-justify-content-between ion-align-items-center">
+            <ion-col size="4">
+              <img class="song_background" [src]="reward.image" alt="Reward Icon" />
+            </ion-col>
+            <ion-col>
+              <ion-text>{{ reward.description }}</ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

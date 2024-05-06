@@ -2,22 +2,23 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
-import { IonInput, IonRange, IonLabel } from "@ionic/angular/standalone";
+import { IonInput, IonRange, IonLabel, IonIcon } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-audio-player',
   templateUrl: './audio-player.component.html',
   styleUrls: ['./audio-player.component.scss'],
-  imports: [IonLabel, IonRange, CommonModule, FormsModule, IonInput],
+  imports: [IonIcon, IonLabel, IonRange, CommonModule, FormsModule, IonInput],
   standalone: true
 })
 export class AudioPlayerComponent implements OnDestroy {
-  @Input() src!: string;
+  @Input() src!: any;
   public audio: HTMLAudioElement;
 
   private step: number = 15;
   private currentTime: number = 0;
   private pausedTime: number = 0;
+  private isPlaying: boolean = false;
 
   constructor(
     private toastCtrl: ToastController

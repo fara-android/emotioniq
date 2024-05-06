@@ -18,7 +18,7 @@ export const routes: Routes = [
     loadComponent: () => import('./home/history/history.page').then( m => m.HistoryPage)
   },
   {
-    path: 'home/player',
+    path: 'home/player/:id',
     loadComponent: () => import('./home/player/player.page').then( m => m.PlayerPage)
   },
   {
@@ -26,8 +26,24 @@ export const routes: Routes = [
     loadComponent: () => import('./analysis/analysis.page').then( m => m.AnalysisPage)
   },
   {
+    path: 'analysis/article/:id',
+    loadComponent: () => import('./analysis/article/article.page').then( m => m.ArticlePage)
+  },
+  {
+    path: 'analysis/video/:id',
+    loadComponent: () => import('./analysis/video/video.page').then( m => m.VideoPage)
+  },
+  {
     path: 'quiz',
     loadComponent: () => import('./quiz/quiz.page').then( m => m.QuizPage)
+  },
+  {
+    path: 'quiz/rewards',
+    loadComponent: () => import('./quiz/rewards/rewards.page').then( m => m.RewardsPage)
+  },
+  {
+    path: 'quiz/leaderboard',
+    loadComponent: () => import('./quiz/leaderboard/leaderboard.page').then( m => m.LeaderboardPage)
   },
   {
     path: 'settings',
@@ -37,5 +53,9 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'webview',
+    loadComponent: () => import('./settings/webview/webview.page').then( m => m.WebviewPage)
   },
 ];

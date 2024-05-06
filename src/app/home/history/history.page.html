@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div class="history_filter">
+  <div class="page_filter">
     <ion-text>Select a time period</ion-text>
-    <div class="ion-margin-top history_filter__actions">
+    <div class="ion-margin-top page_filter__actions">
       <ion-button shape="round" [class.active]="activeFilter === 'week'" (click)="setFilter('week')">Week</ion-button>
       <ion-button shape="round" [class.active]="activeFilter === 'month'"
         (click)="setFilter('month')">Month</ion-button>
@@ -18,37 +18,38 @@
     </div>
   </div>
 
-  <div class="history_emojy ion-margin ion-padding-bottom">
-    <div class="history_emojy__container">
+  <div class="history_emojy ion-margin ion-padding-bottom" *ngIf="tasks.length">
+    <div class="history_emojy__container" *ngIf="mostUsedEmoji">
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col size="4">
-            <app-emoji-item [emojy]="emojy" [activeEmojyId]="activeEmojyId"></app-emoji-item>
+            <app-emoji-item [emojy]="mostUsedEmoji" [activeEmojiId]="mostUsedEmoji.id"></app-emoji-item>
           </ion-col>
         </ion-row>
       </ion-grid>
-    </div>
-    <div class="history_emojy__details ion-margin-top">
-      <ion-text>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur atque commodi dolores minus?
-        Laboriosam labore eveniet, adipisci quaerat culpa eum eius, molestias obcaecati consequatur sed hic nemo
-        doloremque dolores. Doloribus.
-      </ion-text>
+      <div class="history_emojy__details ion-margin-top">
+        <ion-text>{{ mostUsedEmojiAdvice }}</ion-text>
+      </div>
     </div>
     <div class="history_emojy__list ion-margin-top">
       <ion-text><h1>Your emotions this week</h1></ion-text>
 
       <div class="emoji-grid">
-        <div *ngFor="let emojy of emojies" class="history_emojy__list__item ion-margin-bottom" (click)="openModal(emojy)">
+        <div *ngFor="let task of tasks" class="history_emojy__list__item ion-margin-bottom" (click)="openModal(task)">
           <div class="history_emojy__list__item__date">
             <ion-icon src="assets/icon/calendar.svg" class="ion-margin-end"></ion-icon>
-            <ion-text>12.04.2024</ion-text>
+            <ion-text>{{ task.date | date: 'dd.MM.yyyy' }}</ion-text>
           </div>
-          <app-emoji-item [emojy]="emojy" [activeAllEmojies]="activeAllEmojies" [smallTitle]="true" class="test-me"></app-emoji-item>
+          <app-emoji-item [emojy]="task.emoji" [activeAllEmojies]="activeAllEmojies" [smallTitle]="true" class="test-me"></app-emoji-item>
         </div>
       </div>
     </div>
   </div>
 
-  <app-emoji-modal [emoji]="getActiveEmojy()" [isModalOpen]="isModalOpen"></app-emoji-modal>
+  <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
+    <div class="emoji_details" *ngIf="currentActiveTask">
+      <ion-img class="close_modal_btn" src="/assets/emojes/close_no_bg.png" (click)="closeModal()"></ion-img>
+      <ion-text>{{ currentActiveTask.text }}</ion-text>
+    </div>
+  </ion-modal>
 </ion-content>

@@ -1,8 +1,9 @@
 <div class="emoji-item">
+  <ion-img *ngIf="emojy.is_primary" class="emojy_crown" src="/assets/emojes/crown.png"></ion-img>
   <img [src]="'/assets/emojes/emotions/'+emojy.img" alt="{{ emojy.name }}" class="emojy_slide_img"
-    [ngClass]="{ 'active-emojy': activeAllEmojies || emojy.id === activeEmojyId }" />
-  <ion-text *ngIf="activeAllEmojies || emojy.id === activeEmojyId">
-    <h1 [ngClass]="{ 'active-emojy-title': activeAllEmojies || emojy.id === activeEmojyId }"
+    [ngClass]="{ 'active-emojy': activeAllEmojies || emojy.id === activeEmojiId }" />
+  <ion-text *ngIf="activeAllEmojies || emojy.id === activeEmojiId">
+    <h1 [ngClass]="{ 'active-emojy-title': activeAllEmojies || emojy.id === activeEmojiId }"
       [ngStyle]="{ 'font-size': smallTitle ? '13px' : '' }"
     >
       {{ emojy.name }}

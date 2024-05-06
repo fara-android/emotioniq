@@ -1,0 +1,25 @@
+ion-content {
+    .article_image {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        z-index: -1;
+    }
+
+    .page_main_block {
+        bottom: 0;
+        height: calc(100vh - 449px + 74px);
+    }
+
+    .article_details {
+        ion-text {
+            h1 {
+                color: #004679;
+                font-size: 32px;
+                font-weight: 600;
+                line-height: 38.73px;
+                text-align: left;
+            }
+        }
+    }
+}

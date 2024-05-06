@@ -1,5 +1,5 @@
 ion-content {
-    .history_filter {
+    .page_filter {
         padding: 1rem;
 
         ion-text {
@@ -77,4 +77,50 @@ ion-content {
             }
         }
     }
+}
+
+ion-modal {
+    --height: 25%;
+    --border-radius: 16px;
+    padding: 1rem;
+
+    .close_modal_btn {
+        --background: transparent;
+        --border-color: transparent;
+        position: fixed;
+        top: 0;
+        right: 0;
+
+        ion-img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .emoji_details {
+        position: relative;
+        padding: 1rem;
+        background: #E6E6E6;
+        height: 100%;
+        width: 100%;
+        padding: 1rem;
+        border-radius: 12px;
+    
+        ion-img {
+            width: 25px;
+            height: 25px;
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+    }
+}
+
+ion-modal::part(backdrop) {
+    opacity: 1;
+}
+
+ion-modal ion-toolbar {
+    --background: transparent !important;
+    --color: white;
 }

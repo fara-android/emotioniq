@@ -1,0 +1,44 @@
+ion-content {
+    .custom_page_header {
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 33.89px;
+            text-align: left;
+            margin: 0;
+        }
+        ion-icon {
+            width: 56px;
+            height: 56px;
+        }
+    }
+
+    .quiz_block {
+        text-align: center;
+        ion-img {
+            width: 336px;
+            height: 336px;
+            object-fit: contain;
+            margin: auto;
+        }
+
+        &__details {
+            margin: 2rem 0;
+            .title {
+                h1 {
+                    margin-top: 0;
+                    color: #0094FF;
+                    font-size: 28px;
+                    font-weight: 700;
+                    line-height: 36px;
+                }
+            }
+            .text {
+                color: #000000;
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 26px;
+            }
+        }
+    }
+}

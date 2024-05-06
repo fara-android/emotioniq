@@ -1,31 +1,37 @@
-import { Component, Directive, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonSkeletonText, IonText, IonButton, IonIcon, IonFabButton, IonFab } from '@ionic/angular/standalone';
 
 import Swiper from 'swiper';
-import { SwiperContainer } from 'swiper/element';
-import { SwiperOptions } from 'swiper/types';
 import { register } from 'swiper/element/bundle';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SwiperDirective } from '../directives/swiper.directive';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { EmojiItemComponent } from '../components/emoji-item/emoji-item.component';
 import { ModalController } from '@ionic/angular';
+import { tracks } from './player/data';
+import { Track } from './player/player.page';
+import { emojies } from './data';
+import { ToastController } from '@ionic/angular';
+import { Storage } from '@capacitor/storage';
+import { v4 as uuidv4 } from 'uuid';
+import { NavbarService } from '../services/navbar-service.service';
 
 register();
 
-export interface Emojy {
+export interface Emoji {
   id: number;
   name: string;
   img: string;
   is_primary: boolean;
+  advices?: string[];
 }
 
-interface Task {
+export interface Task {
+  id: string;
   text: string;
-  emojy: Emojy;
+  emoji: Emoji;
   date: Date;
 }
 
@@ -37,110 +43,127 @@ interface Task {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ModalController],
   imports: [
-    IonFab, IonFabButton, IonIcon, IonButton, IonText, 
+    RouterLink, IonFab, IonFabButton, IonIcon, IonButton, IonText,
     IonSkeletonText, IonCol, IonRow, IonGrid, IonHeader,
-    IonToolbar, IonTitle, IonContent, NavbarComponent, CommonModule, SwiperDirective, EmojiItemComponent
+    IonToolbar, IonTitle, IonContent, NavbarComponent, CommonModule, EmojiItemComponent
   ],
 })
-export class HomePage {
-
-  @Input() config?: SwiperOptions;
-  @ViewChild('modal') modal!: HTMLIonModalElement;
-
-  public swiperConfig: any = {
-    slidesPerView: 3,
-    initialSlide: 1,
-    navigation: false,
-    spaceBetween: 40,
-    freeMode: true,
-    watchSlidesProgress: true,
-  };
-
-  public emojies: Emojy[] = [
-    {
-      id: 1,
-      name: "Satisfaction",
-      img: "Frame9713.png",
-      is_primary: false
-    },
-    {
-      id: 2,
-      name: "Fatigue",
-      img: "Frame9712.png",
-      is_primary: false
-    },
-    {
-      id: 3,
-      name: "Fun",
-      img: "Frame9709.png",
-      is_primary: false
-    },
-    {
-      id: 4,
-      name: "Sad",
-      img: "Frame9711.png",
-      is_primary: false
-    }
-  ]
-
+export class HomePage implements OnInit {
+  public emojies: Emoji[] = emojies;
+  public tracks: Track[] = tracks;
   private tasks: Task[] = [];
 
-  activeEmojyId = 2;
-
+  activeEmojiId = 2;
   userInput: string = '';
   userInputDefault: string = 'How was your day?';
-
   dtime_now: Date = new Date;
-  
   taskSaved: boolean = false;
   highlightedViewShown = false;
-  
-  activeEmojy: Emojy | undefined;
+  isModalOpen = false;
+  activeEmoji: Emoji | undefined;
 
   constructor(
-    private router: Router,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private toastCtrl: ToastController,
+    private navbarService: NavbarService
   ) { }
-
-  slideChange($event: CustomEvent<[swiper: Swiper]>) {
-    const swiper = $event.detail[0];
-    this.activeEmojyId = swiper.activeIndex;
-    this.activeEmojy = this.emojies[this.activeEmojyId];
+  ngOnInit() {
+    this.navbarService.toggleNavbarVisibility(true);
+    this.loadTasks();
   }
 
-  setActiveIndex(index: number) {
-    this.activeEmojyId = index;
-  }
+  public async addTask() {
+    const emoji = this.getActiveEmoji();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-  getActiveEmojy(): Emojy | undefined {
-    return this.emojies.filter(emojy => emojy.id === this.activeEmojyId)[0];
-  }
-
-  saveTask() {
     if (this.userInput === '') return;
 
-    this.taskSaved = true;
+    const todayTasksExist = this.getAllTasks(today);
 
+    if (todayTasksExist.length) {
+      this.presentToast('You can only add one task per day.');
+      return;
+    }
+
+    if (emoji?.is_primary) {
+      this.presentToast('This emoji is only for primary accounts. Please select another one.');
+      return;
+    }
+
+    this.saveTask(emoji!);
+  }
+
+  private async saveTask(emoji: Emoji) {
     const task = {
+      id: uuidv4(),
       text: this.userInput,
-      emojy: this.getActiveEmojy(),
-      date: new Date
-    } as Task
-    
+      emoji: emoji,
+      date: new Date()
+    } as Task;
+
+    this.taskSaved = true;
     this.tasks.push(task);
-    console.log(this.tasks);
+    await this.setTasks(this.tasks);
   }
 
-  commitUserInput(event: any): void {
-    this.userInput = event.detail.value;
+  private async loadTasks() {
+    const tasks = await this.getTasks();
+    if (tasks) this.tasks = tasks;
   }
 
-  navigateTo(url: string) {
-    this.router.navigate([`/home/${url}`]);
+  private async setTasks(tasks: Task[]) {
+    const serializedTasks = JSON.stringify(tasks);
+    await Storage.set({ key: 'userTasks', value: serializedTasks });
   }
 
-  async closeModal() {
+  private async getTasks(): Promise<Task[]> {
+    const { value } = await Storage.get({ key: 'userTasks' });
+    return value ? JSON.parse(value) : [];
+  }
+
+  private async presentToast(message: string) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  public async closeModal() {
+    this.isModalOpen = false;
     await this.modalController.dismiss();
   }
 
+  private getAllTasks(date: Date): Task[] {
+    const filteredTasks = this.tasks.filter((task: Task) => {
+      const taskDate = new Date(task.date);
+      taskDate.setHours(0, 0, 0, 0);
+      return taskDate.getTime() === date.getTime();
+    });
+  
+    return filteredTasks;
+  }
+
+  public setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  public slideChange($event: CustomEvent<[swiper: Swiper]>) {
+    const swiper = $event.detail[0];
+    this.activeEmojiId = swiper.activeIndex;
+    this.activeEmoji = this.emojies[this.activeEmojiId];
+  }
+
+  public setActiveIndex(index: number) {
+    this.activeEmojiId = index;
+  }
+
+  private getActiveEmoji(): Emoji | undefined {
+    return this.emojies.find(emojy => emojy.id === this.activeEmojiId);
+  }
+
+  public commitUserInput(event: any): void {
+    this.userInput = event.detail.value;
+  }
 }
