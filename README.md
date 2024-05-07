@@ -2,6 +2,10 @@
 
 ```bash
 npm install
+
+or
+
+npm install --force
 ```
 
 ## Run tests
