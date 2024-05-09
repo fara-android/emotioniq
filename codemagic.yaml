@@ -19,6 +19,10 @@ workflows:
         APP_DISPLAY_NAME: "EmotionIQ"
         APP_VERSION: "1.0.0"
         APP_BUILD: "1"
+        APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
+        APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        APP_STORE_CONNECT_PRIVATE_KEY: "$APP_STORE_CONNECT_PRIVATE_KEY"
+        CERTIFICATE_PRIVATE_KEY: $CERTIFICATE_PRIVATE_KEY
     scripts:
       - name: Install npm dependencies for Ionic Capacitor project
         script: | 
