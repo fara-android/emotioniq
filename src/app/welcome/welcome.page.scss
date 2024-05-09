@@ -56,20 +56,21 @@ ion-content {
         }
     }
 
-    ion-col {
-        // &:not(:last-child){
-        //     :after {
-        //         content: "|";
-        //         position: absolute;
-        //         width: 50px;
-        //     }
-        // }
-        div {
+    .policy {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0px 30px;
+        &__item {
             color: #FFFFFF;
             font-size: 12px;
             font-weight: 400;
             line-height: 21px;
             text-decoration: underline;
+            position: relative;
+            &__separator {
+                color: #FFFFFF;
+            }
         }
     }
 }

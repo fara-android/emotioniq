@@ -11,7 +11,7 @@
 
   <div class="user-rewards" *ngIf="userRewards.length > 0">
     <ion-list class="user-rewards__list">
-      <ion-item class="ion-margin user-rewards__list__item" *ngFor="let reward of userRewards">
+      <ion-item class="ion-margin user-rewards__list__item" *ngFor="let reward of userRewards | orderBy:'score'">
         <ion-grid>
           <ion-row class="ion-justify-content-between ion-align-items-center">
             <ion-col size="4">

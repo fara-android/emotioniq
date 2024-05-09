@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton, IonButton, IonIcon, IonSkeletonText, IonText, IonTabs, IonTabBar, IonTabButton, IonGrid, IonRow, IonCol, IonModal, IonItem, IonInput, IonList, IonAvatar, IonImg, IonLabel, IonTextarea } from '@ionic/angular/standalone';
 import { appBottomTabDirective } from '../../directives/bottom-tab.directive';
 import { EmojiItemComponent } from '../../components/emoji-item/emoji-item.component';
-import { Emoji } from '../home.page';
 import { ModalController } from '@ionic/angular';
 import { EmojiModalComponent } from '../../components/emoji-modal/emoji-modal.component';
 import { Storage } from '@capacitor/storage';
-import { Task } from '../home.page';
+import { Emoji, Task } from '../types';
 
 @Component({
   selector: 'app-history',
@@ -38,16 +37,8 @@ export class HistoryPage implements OnInit {
 
     if (tasks) {
       this.tasks = tasks;
-      this.updateMostUsedEmoji(); // Update most used emoji initially
+      this.updateMostUsedEmoji();
     }
-
-    // if (tasks) {
-    //   this.tasks = tasks;
-
-    //   // const emj = this.filterTasksByTimeframe(this.activeFilter)[0].emoji;
-    //   // this.emoji = emj;
-    //   // this.emojiAdvice = this.getEmojiRandomAdvice(emj);
-    // }
   }
 
   public setFilter(filter: string) {
@@ -98,18 +89,17 @@ export class HistoryPage implements OnInit {
   }
 
   private updateMostUsedEmoji() {
-    const emojiCounts = new Map<number, number>(); // Map to store emoji counts
+    const emojiCounts = new Map<number, number>();
 
     this.tasks.forEach(task => {
       const emojiId = task.emoji.id;
       if (emojiCounts.has(emojiId)) {
-        emojiCounts.set(emojiId, emojiCounts.get(emojiId)! + 1); // Increment count
+        emojiCounts.set(emojiId, emojiCounts.get(emojiId)! + 1);
       } else {
-        emojiCounts.set(emojiId, 1); // Initialize count
+        emojiCounts.set(emojiId, 1);
       }
     });
 
-    // Find the emoji with the highest count
     let maxCount = 0;
     let mostUsedEmojiId = 0;
     emojiCounts.forEach((count, emojiId) => {
@@ -119,10 +109,8 @@ export class HistoryPage implements OnInit {
       }
     });
 
-    // Find the emoji object with the most used emoji id
     this.mostUsedEmoji = this.tasks.find((task: Task) => task.emoji.id === mostUsedEmojiId)!.emoji;
 
-    // Update most used emoji advice
     this.mostUsedEmojiAdvice = this.getEmojiRandomAdvice(this.mostUsedEmoji);
   }
 

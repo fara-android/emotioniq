@@ -1,4 +1,4 @@
-import { Emoji } from "./home.page";
+import { Emoji } from "./types";
 
 export const emojies: Emoji[] = [
     {

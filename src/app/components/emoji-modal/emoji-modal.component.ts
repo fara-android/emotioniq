@@ -1,9 +1,8 @@
 import { ModalController, IonicModule } from '@ionic/angular';
 import { Component, Input, OnInit } from '@angular/core';
-import { Emoji } from 'src/app/home/home.page';
+import { Task } from 'src/app/home/types';
 import { CommonModule } from '@angular/common';
 import { HistoryPage } from 'src/app/home/history/history.page';
-import { Task } from '../../home/home.page';
 
 @Component({
   selector: 'app-emoji-modal',

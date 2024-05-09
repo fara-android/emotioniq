@@ -62,14 +62,14 @@
     </div>
 
     <ion-modal #modal [isOpen]="isModalOpen" [backdropDismiss]="false">
-      <ion-content>
+      <div class="modal-body">
         <ion-item class="close_modal_btn">
           <ion-img src="/assets/emojes/close_no_bg.png" (click)="closeModal()"></ion-img>
         </ion-item>
         <ion-textarea (ionChange)="commitUserInput($event)" placeholder="How was your day?" [clearOnEdit]="true"
         [autoGrow]="true" [rows]="10" class="custom_textarea" [value]="userInputDefault"
         ></ion-textarea>
-      </ion-content>
+      </div>
     </ion-modal>
   </div>
 </ion-content>

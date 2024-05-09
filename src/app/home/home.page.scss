@@ -154,6 +154,7 @@ ion-content.home_content {
 ion-modal {
   --height: 25%;
   --border-radius: 16px;
+  padding: 1rem;
   // position: relative;
   
   .close_modal_btn {
@@ -162,17 +163,16 @@ ion-modal {
     position: fixed;
     top: 0;
     right: 0;
+    z-index: 999;
     ion-img {
       width: 20px;
       height: 20px;
     }
   }
 
-  ion-content {
-    --background: #E6E6E6;
-    --padding-start: 1rem;
-    --padding-end: 4rem;
-    --padding-bottom: 1rem;
+  .modal-body {
+    background: #E6E6E6;
+    padding: 1rem;
     position: relative;
   }
 }

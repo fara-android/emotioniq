@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { IonText, IonImg } from "@ionic/angular/standalone";
-import { Emoji } from 'src/app/home/home.page';
+import { Emoji } from 'src/app/home/types';
 
 @Component({
   selector: 'app-emoji-item',

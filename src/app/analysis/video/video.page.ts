@@ -5,8 +5,8 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonImg } from '@ionic/angu
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { videos } from '../data';
 import { Video } from '../analysis.page';
-import { YoutubePlayer as YT } from 'capacitor-youtube-player'; // Web version
-import { Plugins, Capacitor } from '@capacitor/core'; // Native version
+// import { YoutubePlayer as YT } from 'capacitor-youtube-player'; // Web version
+// import { Plugins, Capacitor } from '@capacitor/core'; // Native version
 import { ShareOptions } from '@capacitor/share';
 import { Share } from '@capacitor/share'
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -45,29 +45,29 @@ export class VideoPage implements OnInit {
   }
 
   ngAfterViewInit() {
-    if (Capacitor.platform === 'web') {
-      this.initializeYoutubePlayerPluginWeb();
-    } else { // Native
-      this.initializeYoutubePlayerPluginNative();
-    }
+    // if (Capacitor.platform === 'web') {
+    //   this.initializeYoutubePlayerPluginWeb();
+    // } else { // Native
+    //   this.initializeYoutubePlayerPluginNative();
+    // }
   }
 
-  async initializeYoutubePlayerPluginWeb() {
-    const options: any = { playerId: 'youtube-player', playerSize: { width: 640, height: '100%' }, videoId: this.getYoutubeVideoId() };
-    const result = await YT.initialize(options);
-    console.log('playerReady', result);
-  }
+  // async initializeYoutubePlayerPluginWeb() {
+  //   const options: any = { playerId: 'youtube-player', playerSize: { width: 640, height: '100%' }, videoId: this.getYoutubeVideoId() };
+  //   const result = await YT.initialize(options);
+  //   console.log('playerReady', result);
+  // }
 
-  async destroyYoutubePlayerPluginWeb() {
-    const result = await YT.destroy('youtube-player');
-  }
+  // async destroyYoutubePlayerPluginWeb() {
+  //   const result = await YT.destroy('youtube-player');
+  // }
 
-  async initializeYoutubePlayerPluginNative() {
-    const { YoutubePlayer } = Plugins;
+  // async initializeYoutubePlayerPluginNative() {
+  //   const { YoutubePlayer } = Plugins;
 
-    const options: any = { width: 640, height: '100%', videoId: this.getYoutubeVideoId() };
-    const playerReady = await YT.initialize(options);
-  }
+  //   const options: any = { width: 640, height: '100%', videoId: this.getYoutubeVideoId() };
+  //   const playerReady = await YT.initialize(options);
+  // }
 
   getYoutubeVideoId(): string | null {
     const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;

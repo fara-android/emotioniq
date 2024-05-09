@@ -1,10 +1,6 @@
 # Install required dependencies
 
 ```bash
-npm install
-
-or
-
 npm install --force
 ```
 
@@ -12,6 +8,12 @@ npm install --force
 
 ```bash
 npm test
+```
+
+## Update native dependencies
+
+```bash
+npx cap sync 
 ```
 
 ## Run on Android Studio

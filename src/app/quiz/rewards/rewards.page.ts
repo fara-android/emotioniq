@@ -6,6 +6,8 @@ import { RouterLink } from '@angular/router';
 import { quizResult } from '../quiz.page';
 import { Storage } from '@capacitor/storage';
 import { userRewardsList } from './data';
+import { questions } from '../data';
+import { OrderBy } from 'src/app/pipes/orderby.pipe';
 
 export interface Reward {
   description: string;
@@ -18,7 +20,7 @@ export interface Reward {
   templateUrl: './rewards.page.html',
   styleUrls: ['./rewards.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonImg, IonCol, IonRow, IonGrid, IonList, IonListHeader, RouterLink, IonItem, IonButton, IonButtons, IonBackButton, IonText, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [OrderBy, IonLabel, IonImg, IonCol, IonRow, IonGrid, IonList, IonListHeader, RouterLink, IonItem, IonButton, IonButtons, IonBackButton, IonText, IonIcon, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class RewardsPage implements OnInit {
   public rewards: quizResult[] = [];
@@ -42,11 +44,15 @@ export class RewardsPage implements OnInit {
     }
   }
 
-  private generateRewardList(userResults: any[], rewards: Reward[]): void {
-    userResults.forEach(result => {
-      const userScore = result.score;
-      if (userScore === 25 || userScore === 30) {
-        const reward = rewards.find(reward => reward.score === userScore);
+  private generateRewardList(userResults: quizResult[], rewards: Reward[]): void {
+    userResults.forEach((result: quizResult) => {
+      const userScore = result.rewardScore;
+      if (userScore === 0) return
+      if (
+        userScore >= 25 && userScore < questions.length || 
+        userScore === questions.length
+      ) {
+        const reward = rewards.find((reward: Reward) => reward.score === userScore);
         if (reward) {
           this.userRewards.push(reward);
         }

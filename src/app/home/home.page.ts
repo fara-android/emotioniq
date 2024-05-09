@@ -17,23 +17,9 @@ import { ToastController } from '@ionic/angular';
 import { Storage } from '@capacitor/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { NavbarService } from '../services/navbar-service.service';
+import { Emoji, Task } from './types';
 
 register();
-
-export interface Emoji {
-  id: number;
-  name: string;
-  img: string;
-  is_primary: boolean;
-  advices?: string[];
-}
-
-export interface Task {
-  id: string;
-  text: string;
-  emoji: Emoji;
-  date: Date;
-}
 
 @Component({
   selector: 'app-home',

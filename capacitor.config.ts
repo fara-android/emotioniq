@@ -1,12 +1,12 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.emotioniq.app',
+  appId: 'io.emotioniq.emotion.management',
   appName: 'emotioniq',
   webDir: 'www',
   plugins: {
     Storage: {
-      "sync": true
+      sync: true
     },
     SplashScreen: {
       launchShowDuration: 2000,
