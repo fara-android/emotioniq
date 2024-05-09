@@ -17,7 +17,7 @@ workflows:
           #APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
           #APP_STORE_CONNECT_PRIVATE_KEY: "$APP_STORE_CONNECT_PRIVATE_KEY"
           #CERTIFICATE_PRIVATE_KEY: $CERTIFICATE_PRIVATE_KEY
-        xcode: "15.3"
+        xcode: "14.3.1"
         cocoapods: default
       scripts:
         - name: Install npm dependencies for Ionic Capacitor project
