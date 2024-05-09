@@ -8,7 +8,7 @@ workflows:
       groups:
         - publishing
       ios_signing:
-        distribution_type: app_store
+        # distribution_type: app_store
         bundle_identifier: io.emotioniq.emotion.management
       vars:
         XCODE_WORKSPACE: "ios/App.xcworkspace"
