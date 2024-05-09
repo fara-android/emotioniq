@@ -32,9 +32,6 @@ workflows:
             npx cap sync ios
             npx cap copy ios
             npx cap update ios
-        - name: Set up code signing settings on Xcode project
-          script: | 
-            xcode-project use-profiles
         - name: Increment build number
           script: | 
             cd $CM_BUILD_DIR/ios/App
@@ -46,7 +43,6 @@ workflows:
             xcode-project build-ipa \
               --workspace "$XCODE_WORKSPACE" \
               --scheme "$XCODE_SCHEME"
-              --archive-flags="-destination 'generic/platform=iOS'"
       artifacts:
         - build/ios/ipa/*.ipa
         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
