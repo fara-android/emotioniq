@@ -5,13 +5,20 @@ workflows:
     integrations:
       app_store_connect: codemagic
     environment:
+      groups:
+        - publishing
       ios_signing:
         distribution_type: app_store
         bundle_identifier: io.emotioniq.emotion.management
       vars:
-        APP_STORE_APPLE_ID: 6502370663
-        XCODE_WORKSPACE: "platforms/ios/App.xcworkspace"
+        XCODE_WORKSPACE: "ios/App.xcworkspace"
         XCODE_SCHEME: "App"
+        BUNDLE_ID: "io.emotioniq.emotion.management"
+        APP_STORE_APP_ID: 6502370663
+        APP_DOMAIN: "riverlinesmob.site"
+        APP_DISPLAY_NAME: "EmotionIQ"
+        APP_VERSION: "1.0.0"
+        APP_BUILD: "1"
     scripts:
       - name: Install npm dependencies for Ionic Capacitor project
         script: | 
