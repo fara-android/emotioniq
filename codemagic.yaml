@@ -22,7 +22,7 @@ workflows:
       scripts:
         - name: Install npm dependencies for Ionic Capacitor project
           script: | 
-            npm install
+            npm install --force
         - name: Cocoapods installation
           script: | 
             cd ios/App && pod install
