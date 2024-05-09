@@ -1,4 +1,4 @@
-package io.emotioniq.app;
+package io.emotioniq.emotion.management;
 
 import com.getcapacitor.BridgeActivity;
 
