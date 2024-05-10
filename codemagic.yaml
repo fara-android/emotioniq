@@ -1,68 +1,44 @@
-workflows:
-  ios-workflow:
-    name: iOS Workflow
-    environment:
-      groups:
-        - publishing # <-- (APP_STORE_CONNECT_ISSUER_ID, APP_STORE_CONNECT_KEY_IDENTIFIER, APP_STORE_CONNECT_PRIVATE_KEY)
-      vars:
-        XCODE_WORKSPACE: "App.xcworkspace" # <-- Put the name of your workspace here.
-        XCODE_SCHEME: "App" # <-- Put the name of your scheme here.
-        BUNDLE_ID: "io.emotioniq.emotion.management" # <-- Put your Bundle Id here.
-        APP_STORE_APP_ID: 6502370663 # <-- Put the app id number here. This is found in App Store Connect > App > General > App Information
-        APP_DOMAIN: "riverlinesmob.site"
-        APP_DISPLAY_NAME: "EmotionIQ"
-        APP_VERSION: "1.0.0"
-        APP_BUILD: "1"
-        CUSTOM_ARCHIVE_PATH: "build/ios/xcarchive/App_custom.xcarchive" # Custom archive path
-        CUSTOM_XCODEBUILD_OPTIONS: "COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGN_STYLE=Automatic DEVELOPMENT_TEAM=MyGuruTeam" # Custom xcodebuild options
-        #APP_STORE_CONNECT_ISSUER_ID: $APP_STORE_CONNECT_ISSUER_ID
-        #APP_STORE_CONNECT_KEY_IDENTIFIER: $APP_STORE_CONNECT_KEY_IDENTIFIER
-        #APP_STORE_CONNECT_PRIVATE_KEY: "$APP_STORE_CONNECT_PRIVATE_KEY"
-        #CERTIFICATE_PRIVATE_KEY: $CERTIFICATE_PRIVATE_KEY
-      xcode: "14.3.1"
-      cocoapods: default
-    scripts:
-      - name: Install npm dependencies for Ionic Capacitor project
-        script: |
-          npm install --force
-      - name: Cocoapods installation
-        script: |
-          cd ios/App && pod install
-      - name: Update dependencies and copy web assets to native project
-        script: |
-          npm run build
-          npx cap sync ios
-          npx cap copy ios
-          npx cap update ios
-      - name: Set up code signing settings on Xcode project
-        script: |
-          xcode-project use-profiles
-      - name: Increment build number
-        script: |
-          cd $CM_BUILD_DIR/ios/App
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
-          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
-      - name: Build ipa for distribution
-        script: |
-          cd $CM_BUILD_DIR/ios/App
-          xcode-project build-ipa \
-            --workspace "$XCODE_WORKSPACE" \
-            --scheme "$XCODE_SCHEME" \
-      - name: Profiling build for distribution
-        script: |
-          xcodebuild -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" \
-           -archivePath "$CUSTOM_ARCHIVE_PATH" archive $CUSTOM_XCODEBUILD_OPTIONS
-           -allowProvisioningUpdates -destination 'generic/platform=iOS'
+# Check out https://docs.codemagic.io/getting-started/building-an-ionic-app/ for more information
+# Please review and update values in curly braces
+# Remove or comment out the workflows you don't require
 
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+workflows:
+    ios-workflow:
+        name: Ionic App
+        environment:
+            groups:
+                - publishing
+            vars:
+                XCODE_WORKSPACE: "App.xcworkspace"
+                XCODE_SCHEME: "App"
+                BUNDLE_ID: "io.emotioniq.emotion.management"
+                APP_STORE_APP_ID: 6502370663
+                APP_DOMAIN: "riverlinesmob.site"
+                APP_DISPLAY_NAME: "EmotionIQ"
+                APP_VERSION: "1.0.0"
+                APP_BUILD: "1"
+            node: latest
+        scripts:
+            - name: Install npm dependencies for Ionic Capacitor project
+                script: |
+                    npm install --force
+                    npx cap sync
+                    cd platforms/ios
+                    pod install
+                    xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+            - name: iOS test
+                script: |
+                    xcode-project run-tests \
+                      --workspace "$XCODE_WORKSPACE" \
+                      --scheme "$XCODE_SCHEME" \
+                      --device "iPhone 14"
+                    test_report: build/ios/test/*.xml
+        artifacts:
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
     publishing:
-      app_store_connect: # https://docs.codemagic.io/publishing-yaml/distribution
-        api_key: $APP_STORE_CONNECT_PRIVATE_KEY # Contents of the API key, can also reference environment variable such as $APP_STORE_CONNECT_PRIVATE_KEY
-        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER # Alphanumeric value that identifies the API key, can also reference environment variable such as $APP_STORE_CONNECT_KEY_IDENTIFIER
-        issuer_id: $APP_STORE_CONNECT_ISSUER_ID # Alphanumeric value that identifies who created the API key, can also reference environment variable such as $APP_STORE_CONNECT_ISSUER_ID
-        submit_to_testflight: false # Optional boolean, defaults to false. Whether or not to submit the uploaded build to TestFlight beta review. Required for distributing to beta groups. Note: This action is performed during post-processing.
-        # beta_groups:                                  # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
-        #       - group name 1
-        #       - group name 2
+        app_store_connect:
+            api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+            key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+            issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+            submit_to_testflight: false
