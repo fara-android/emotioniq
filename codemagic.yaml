@@ -52,7 +52,10 @@ workflows:
             --ipa-directory "build/ios/ipa" \
             --export-options-plist "exportOptions.plist"
 
-          xcodebuild -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" -archivePath "$CUSTOM_ARCHIVE_PATH" archive $CUSTOM_XCODEBUILD_OPTIONS
+          xcodebuild -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" \
+           -archivePath "$CUSTOM_ARCHIVE_PATH" archive $CUSTOM_XCODEBUILD_OPTIONS
+           -allowProvisioningUpdates -destination 'generic/platform=iOS' 
+           -configuration Release DEVELOPMENT_TEAM=MyGuruTeam
 
     artifacts:
       - build/ios/ipa/*.ipa
