@@ -41,7 +41,10 @@ workflows:
           - name: Build Workspace
             script: |
               cd $CM_BUILD_DIR/ios/App
-              xcodebuild -workspace App.xcworkspace -scheme App -archivePath build/ios/xcarchive/App_l1n48g8u.xcarchive archive COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGN_STYLE="Automatic" CODE_SIGN_IDENTITY=""
+              xcodebuild -workspace App.xcworkspace -scheme App \
+              -archivePath build/ios/xcarchive/App_l1n48g8u.xcarchive archive \
+              -exportPath $CM_BUILD_DIR/ios/App/build/ipa
+              COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGN_STYLE="Automatic" CODE_SIGN_IDENTITY=""
             #   xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" AD_HOC_CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
           - name: Build IPA
             script: |
@@ -58,7 +61,7 @@ workflows:
               echo "IOS dir" && ls -la ios/
               echo "Developer dir" && ls -la $HOME/Library/Developer/Xcode/DerivedData/**/Build/
         artifacts:
-            - ios/build/ipa/*.ipa
+            - $CM_BUILD_DIR/ios/App/build/ipa
             - /tmp/xcodebuild_logs/*.log
             - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
             - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
