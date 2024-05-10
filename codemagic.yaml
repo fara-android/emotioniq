@@ -39,8 +39,6 @@ workflows:
             script: |
               cd $CM_BUILD_DIR/ios/App
                 xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-        integrations:
-            app_store_connect: $APP_STORE_CONNECT_PRIVATE_KEY
         artifacts:
             - build/ios/ipa/*.ipa
             - /tmp/xcodebuild_logs/*.log
@@ -48,5 +46,7 @@ workflows:
             - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
         publishing:
             app_store_connect:
-              auth: integration
+              api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+              key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+              issuer_id: $APP_STORE_CONNECT_ISSUER_ID
               submit_to_testflight: true
