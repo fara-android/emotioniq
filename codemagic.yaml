@@ -4,7 +4,7 @@
 
 workflows:
     ios-workflow:
-        name: Ionic App
+        name: EmotionIQ App
         environment:
             groups:
                 - publishing
@@ -22,7 +22,9 @@ workflows:
           - name: Install npm dependencies for Ionic Capacitor project
             script: |
               npm install --force
+              npm run build
               npx cap sync
+              npx cap update ios
               cd platforms/ios
               pod install
               xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
