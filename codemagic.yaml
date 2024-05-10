@@ -44,10 +44,10 @@ workflows:
               xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
           - name: Show build directories
             script: |
-              ls -la $CM_BUILD_DIR
-              ls -la build/ios/
-              ls -la build/ios/ipa
-              ls -la $HOME/Library/Developer/Xcode/DerivedData/**/Build/
+              echo "Home dir" && ls -la $CM_BUILD_DIR
+              echo "IOS dir" && ls -la ios/build
+              echo "IPA dir" && ls -la ios/build/ipa
+              echo "Developer dir" && ls -la $HOME/Library/Developer/Xcode/DerivedData/**/Build/
         #   - name: Build IPA
         #     script: |
         #       cd $CM_BUILD_DIR/ios/App
@@ -55,7 +55,7 @@ workflows:
         #       --workspace "$XCODE_WORKSPACE" \
         #       --scheme "$XCODE_SCHEME" \
         artifacts:
-            - build/ios/ipa/*.ipa
+            - ios/build/ipa/*.ipa
             - /tmp/xcodebuild_logs/*.log
             - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
             - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
