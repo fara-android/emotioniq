@@ -40,8 +40,8 @@ workflows:
               xcode-project use-profiles
           - name: Build Workspace
             script: |
+              mkdir -p ios/build/ipa
               cd $CM_BUILD_DIR/ios/App
-              mkdir -p build/ipa
               xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
               cp -r build/*.ipa $CM_BUILD_DIR/ios/App/build/ipa/
         #   - name: Build Workspace
