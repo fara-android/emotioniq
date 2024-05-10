@@ -42,7 +42,8 @@ workflows:
         artifacts:
           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
           - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-          - $CM_BUILD_DIR/ios/App/build/*.ipa
+          - $CM_BUILD_DIR/ios/App/build/ios/ipa/*.ipa
+        #   - $CM_BUILD_DIR/ios/App/build/*.ipa
         publishing:
             app_store_connect:
               api_key: $APP_STORE_CONNECT_PRIVATE_KEY
