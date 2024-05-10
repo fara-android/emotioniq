@@ -5,9 +5,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonLabel, IonList
 import { NavbarComponent } from '../navbar/navbar.component';
 import { addIcons } from 'ionicons'
 import { chevronForwardOutline } from 'ionicons/icons'
-import {
-	GlassfySku
-} from 'capacitor-plugin-glassfy';
+// import {
+// 	GlassfySku
+// } from 'capacitor-plugin-glassfy';
 import { ProductService } from '../services/premium.service';
 import { Browser } from '@capacitor/browser';
 import { environment } from 'src/environments/environment';
@@ -21,24 +21,25 @@ import { environment } from 'src/environments/environment';
 })
 export class SettingsPage implements OnInit {
 
-  constructor(private productService: ProductService) { }
+  // private productService: ProductService
+  constructor() { }
 
   ngOnInit() {
     addIcons({ chevronForwardOutline });
-    const offerings = this.productService.getOfferings();
-    const user = this.productService.user;
+    // const offerings = this.productService.getOfferings();
+    // const user = this.productService.user;
 
-    console.log(offerings);
-    console.log(user)
+    // console.log(offerings);
+    // console.log(user)
   }
 
-	public async purchase(sku: GlassfySku) {
-		await this.productService.purchase(sku);
-	}
+	// public async purchase(sku: GlassfySku) {
+	// 	await this.productService.purchase(sku);
+	// }
 
-	public async restore() {
-		await this.productService.restore();
-	}
+	// public async restore() {
+	// 	await this.productService.restore();
+	// }
 
   public async openPrivacyPolicy() {
     await Browser.open({ url: environment.settingsUrls.privacy });
