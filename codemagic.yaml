@@ -39,7 +39,7 @@ workflows:
         script: |
           RANDOM_HASH=$(openssl rand -hex 4)
           echo "Random hash: $RANDOM_HASH"
-          sed -i '' "s/App_XXXX/$RANDOM_HASH/g" $CM_BUILD_DIR/ios/App.xcodeproj/project.pbxproj
+          sed -i '' "s/App_XXXX/$RANDOM_HASH/g" $CM_BUILD_DIR/ios/App
       - name: Set up code signing settings on Xcode project
         script: |
           xcode-project use-profiles
