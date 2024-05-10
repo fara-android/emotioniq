@@ -48,7 +48,7 @@ workflows:
           xcode-project build-ipa \
             --workspace "$XCODE_WORKSPACE" \
             --scheme "$XCODE_SCHEME" \
-            --archivePath "$CUSTOM_ARCHIVE_PATH" archive $CUSTOM_XCODEBUILD_OPTIONS
+            -archivePath "$CUSTOM_ARCHIVE_PATH" archive $CUSTOM_XCODEBUILD_OPTIONS
       # - name: Profiling build for distribution
       #   script: |
       #     cd $CM_BUILD_DIR/ios/App
