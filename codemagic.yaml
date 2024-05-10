@@ -45,8 +45,7 @@ workflows:
           - name: Show build directories
             script: |
               echo "Home dir" && ls -la $CM_BUILD_DIR
-              echo "IOS dir" && ls -la ios/build
-              echo "IPA dir" && ls -la ios/build/ipa
+              echo "IOS dir" && ls -la ios/
               echo "Developer dir" && ls -la $HOME/Library/Developer/Xcode/DerivedData/**/Build/
         #   - name: Build IPA
         #     script: |
