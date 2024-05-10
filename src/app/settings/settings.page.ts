@@ -8,7 +8,7 @@ import { chevronForwardOutline } from 'ionicons/icons'
 // import {
 // 	GlassfySku
 // } from 'capacitor-plugin-glassfy';
-import { ProductService } from '../services/premium.service';
+// import { ProductService } from '../services/premium.service';
 import { Browser } from '@capacitor/browser';
 import { environment } from 'src/environments/environment';
 
