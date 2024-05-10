@@ -35,9 +35,9 @@ workflows:
           - name: Update dependencies and copy web assets to native project
             script: |
               npx cap sync
-        #   - name: Set up code signing settings on Xcode project
-        #     script: |
-        #       xcode-project use-profiles
+          - name: Set up code signing settings on Xcode project
+            script: |
+              xcode-project use-profiles
           - name: Build Workspace
             script: |
               cd $CM_BUILD_DIR/ios/App
