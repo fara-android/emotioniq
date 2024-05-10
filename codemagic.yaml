@@ -38,12 +38,13 @@ workflows:
         #   - name: Set up code signing settings on Xcode project
         #     script: |
         #       xcode-project use-profiles
-        #   - name: Build Workspace
-        #     script: |
-        #       cd $CM_BUILD_DIR/ios/App
-        #       xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" AD_HOC_CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          - name: Build Workspace
+            script: |
+              cd $CM_BUILD_DIR/ios/App
+              xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" AD_HOC_CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
           - name: Build IPA
             script: |
+              cp ios/export_options.plist $CM_BUILD_DIR/ios
               cd $CM_BUILD_DIR/ios/App
               xcode-project build-ipa \
               --workspace "$XCODE_WORKSPACE" \
