@@ -17,7 +17,6 @@ def capacitor_pods
   pod 'CapacitorShare', :path => '../../node_modules/@capacitor/share'
   pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
   pod 'CapacitorStorage', :path => '../../node_modules/@capacitor/storage'
-  pod 'CapacitorPluginGlassfy', :path => '../../node_modules/capacitor-plugin-glassfy'
 end
 
 target 'App' do
