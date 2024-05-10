@@ -50,11 +50,11 @@ workflows:
         #       --scheme "$XCODE_SCHEME" \
         artifacts:
             - build/ios/ipa/*.ipa
-            - /tmp/xcodebuild_logs/*.log
+            # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+            - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+            # - /tmp/xcodebuild_logs/*.log
             # - build/ios/ipa/*.ipa
             # - /tmp/xcodebuild_logs/*.log
-            # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-            # - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
         publishing:
             app_store_connect:
               api_key: $APP_STORE_CONNECT_PRIVATE_KEY
