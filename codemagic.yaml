@@ -41,7 +41,8 @@ workflows:
           - name: Build Workspace
             script: |
               cd $CM_BUILD_DIR/ios/App
-              xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" AD_HOC_CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+              xcodebuild -workspace App.xcworkspace -scheme App -archivePath build/ios/xcarchive/App_l1n48g8u.xcarchive archive COMPILER_INDEX_STORE_ENABLE=NO CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY=""
+            #   xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" AD_HOC_CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
           - name: Build IPA
             script: |
               cp ios/export_options.plist $CM_BUILD_DIR/ios
