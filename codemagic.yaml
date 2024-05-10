@@ -40,9 +40,10 @@ workflows:
               cd $CM_BUILD_DIR/ios/App
                 xcodebuild build -workspace "$XCODE_WORKSPACE" -scheme "$XCODE_SCHEME" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
         artifacts:
-          - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
-          - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-          - $CM_BUILD_DIR/ios/App/build/ios/ipa/*.ipa
+            - build/ios/ipa/*.ipa
+        #   - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+        #   - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+        #   - $CM_BUILD_DIR/ios/App/build/ios/ipa/*.ipa
         #   - $CM_BUILD_DIR/ios/App/build/*.ipa
         publishing:
             app_store_connect:
