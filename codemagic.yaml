@@ -29,7 +29,7 @@ workflows:
             script: |
               npm install --force
               npm run build
-              npx cap build ios
+              ionic cap build ios
           - name: Cocoapods installation
             script: |
               cd ios/App && pod install
