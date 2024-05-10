@@ -50,7 +50,6 @@ workflows:
               --workspace "$XCODE_WORKSPACE" \
               --scheme "$XCODE_SCHEME" \
               --export-options-plist "$CM_BUILD_DIR/ios/export_options.plist"
-              --ipa-directory "$CM_BUILD_DIR/ios/App/build/ipa"
           - name: Show build directories
             script: |
               echo "Home dir" && ls -la $CM_BUILD_DIR/ios/
