@@ -9,7 +9,7 @@ import { chevronForwardOutline } from 'ionicons/icons'
 // 	GlassfySku
 // } from 'capacitor-plugin-glassfy';
 // import { ProductService } from '../services/premium.service';
-import { Browser } from '@capacitor/browser';
+// import { Browser } from '@capacitor/browser';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -42,15 +42,15 @@ export class SettingsPage implements OnInit {
 	// }
 
   public async openPrivacyPolicy() {
-    await Browser.open({ url: environment.settingsUrls.privacy });
+    // await Browser.open({ url: environment.settingsUrls.privacy });
   }
   
   public async openTermsOfUse() {
-    await Browser.open({ url: environment.settingsUrls.terms });
+    // await Browser.open({ url: environment.settingsUrls.terms });
   }
 
   public async openSupportForm() {
-    await Browser.open({ url: environment.settingsUrls.support });
+    // await Browser.open({ url: environment.settingsUrls.support });
   }
 
 }
